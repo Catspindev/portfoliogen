@@ -93,10 +93,10 @@
         // Function to generate the portfolio based on user input
         function generatePortfolio() {
             // Get user input
-            var bio = prompt("Enter your bio:");
-            var skills = prompt("Enter your skills (comma-separated):").split(',');
-            var projects = prompt("Enter your projects (project name:project description, separated by semicolon):").split(';');
-            var contact = prompt("Enter your contact information:");
+            var bio = document.getElementById('bioInput').value;
+            var skills = document.getElementById('skillsInput').value.split(',');
+            var projects = document.getElementById('projectsInput').value.split(';');
+            var contact = document.getElementById('contactInput').value;
 
             // Set generated content in the HTML
             document.getElementById('bio').innerText = bio;
@@ -132,13 +132,46 @@
             });
 
             document.getElementById('contact').innerText = contact;
-            var nameInput = prompt("Enter your name:");
-            document.getElementById('name').innerText = nameInput;
-        }
+            document.getElementById('name').innerText = document.getElementById('nameInput').value;
 
-        // Call the generatePortfolio function
-        generatePortfolio();
+            // Create a Blob with the HTML content
+            var blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+
+            // Create a link element to trigger the download
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'portfolio.html';
+
+            // Append the link to the document and trigger the click event
+            document.body.appendChild(a);
+            a.click();
+
+            // Remove the link from the document
+            document.body.removeChild(a);
+        }
     </script>
+
+    <section>
+        <h2>Create Your Portfolio</h2>
+        <form onsubmit="generatePortfolio(); return false;">
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" required><br>
+
+            <label for="bioInput">About Me:</label>
+            <textarea id="bioInput" required></textarea><br>
+
+            <label for="skillsInput">Skills (comma-separated):</label>
+            <input type="text" id="skillsInput" required><br>
+
+            <label for="projectsInput">Projects (project name:project description, separated by semicolon):</label>
+            <textarea id="projectsInput" required></textarea><br>
+
+            <label for="contactInput">Contact Information:</label>
+            <input type="text" id="contactInput" required><br>
+
+            <button type="submit">Download Portfolio</button>
+        </form>
+    </section>
 
 </body>
 
