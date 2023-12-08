@@ -85,14 +85,38 @@
         <p id="contact"></p>
     </section>
 
-    <footer>
-        &copy; <span id="name"></span> | Let's build something amazing together!
-    </footer>
+    <section>
+        <h2>Create Your Portfolio</h2>
+        <form onsubmit="generatePortfolio(); return false;">
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" required><br>
+
+            <label for="bioInput">About Me:</label>
+            <textarea id="bioInput" required></textarea><br>
+
+            <label for="skillsInput">Skills (comma-separated):</label>
+            <input type="text" id="skillsInput" required><br>
+
+            <label for="projectsInput">Projects (project name:project description, separated by semicolon):</label>
+            <textarea id="projectsInput" required></textarea><br>
+
+            <label for="contactInput">Contact Information:</label>
+            <input type="text" id="contactInput" required><br>
+
+            <button type="submit">Generate Portfolio</button>
+        </form>
+    </section>
+
+    <section id="generatedPortfolio" style="display: none;">
+        <h2>Your Generated Portfolio</h2>
+        <button onclick="downloadPortfolio()">Download Portfolio</button>
+    </section>
 
     <script>
         // Function to generate the portfolio based on user input
         function generatePortfolio() {
             // Get user input
+            var name = document.getElementById('nameInput').value;
             var bio = document.getElementById('bioInput').value;
             var skills = document.getElementById('skillsInput').value.split(',');
             var projects = document.getElementById('projectsInput').value.split(';');
@@ -132,8 +156,13 @@
             });
 
             document.getElementById('contact').innerText = contact;
-            document.getElementById('name').innerText = document.getElementById('nameInput').value;
 
+            // Display the generated portfolio section
+            document.getElementById('generatedPortfolio').style.display = 'block';
+        }
+
+        // Function to download the generated portfolio as an HTML file
+        function downloadPortfolio() {
             // Create a Blob with the HTML content
             var blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
 
@@ -150,28 +179,6 @@
             document.body.removeChild(a);
         }
     </script>
-
-    <section>
-        <h2>Create Your Portfolio</h2>
-        <form onsubmit="generatePortfolio(); return false;">
-            <label for="nameInput">Name:</label>
-            <input type="text" id="nameInput" required><br>
-
-            <label for="bioInput">About Me:</label>
-            <textarea id="bioInput" required></textarea><br>
-
-            <label for="skillsInput">Skills (comma-separated):</label>
-            <input type="text" id="skillsInput" required><br>
-
-            <label for="projectsInput">Projects (project name:project description, separated by semicolon):</label>
-            <textarea id="projectsInput" required></textarea><br>
-
-            <label for="contactInput">Contact Information:</label>
-            <input type="text" id="contactInput" required><br>
-
-            <button type="submit">Download Portfolio</button>
-        </form>
-    </section>
 
 </body>
 
