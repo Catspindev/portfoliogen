@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Generator</title>
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: #fff;
+            background-color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        section {
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left;
+            background-color: #444;
+            color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        h1, h2, h3 {
+            color: #007bff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .project {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #444;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 600px) {
+            section {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>
+        <h2>About Me</h2>
+        <p id="bio"></p>
+    </section>
+
+    <section>
+        <h2>Skills</h2>
+        <ul id="skills"></ul>
+    </section>
+
+    <section>
+        <h2>Projects</h2>
+        <div id="projects"></div>
+    </section>
+
+    <section>
+        <h2>Contact</h2>
+        <p id="contact"></p>
+    </section>
+
+    <footer>
+        &copy; <span id="name"></span> | Let's build something amazing together!
+    </footer>
+
+    <script>
+        // Function to generate the portfolio based on user input
+        function generatePortfolio() {
+            // Get user input
+            var bio = prompt("Enter your bio:");
+            var skills = prompt("Enter your skills (comma-separated):").split(',');
+            var projects = prompt("Enter your projects (project name:project description, separated by semicolon):").split(';');
+            var contact = prompt("Enter your contact information:");
+
+            // Set generated content in the HTML
+            document.getElementById('bio').innerText = bio;
+
+            var skillsList = document.getElementById('skills');
+            skillsList.innerHTML = "";
+            skills.forEach(function (skill) {
+                var li = document.createElement('li');
+                li.innerText = skill.trim();
+                skillsList.appendChild(li);
+            });
+
+            var projectsDiv = document.getElementById('projects');
+            projectsDiv.innerHTML = "";
+            projects.forEach(function (project) {
+                var projectDiv = document.createElement('div');
+                projectDiv.classList.add('project');
+
+                var projectInfo = project.split(':');
+                var projectName = projectInfo[0].trim();
+                var projectDescription = projectInfo[1].trim();
+
+                var h3 = document.createElement('h3');
+                h3.innerText = projectName;
+
+                var p = document.createElement('p');
+                p.innerText = projectDescription;
+
+                projectDiv.appendChild(h3);
+                projectDiv.appendChild(p);
+
+                projectsDiv.appendChild(projectDiv);
+            });
+
+            document.getElementById('contact').innerText = contact;
+            var nameInput = prompt("Enter your name:");
+            document.getElementById('name').innerText = nameInput;
+        }
+
+        // Call the generatePortfolio function
+        generatePortfolio();
+    </script>
+
+</body>
+
+</html>
